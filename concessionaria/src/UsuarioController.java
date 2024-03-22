@@ -19,15 +19,13 @@ public class UsuarioController {
     public void atualizarUsuario(Usuario usuario) throws RemoteException {
         usuarioRepository.atualizarUsuario(usuario);
     }
-    
+
     public Usuario buscarUsuario(String cpf) throws RemoteException {
         return usuarioRepository.buscarUsuario(cpf);
     }
 
-    public boolean autenticarUsuario(String nomeUsuario, String senha) throws RemoteException {
+    public Usuario autenticarUsuario(String nomeUsuario, String senha) throws RemoteException {
         return usuarioRepository.autenticarUsuario(nomeUsuario, senha);
     }
-
-
 
 }

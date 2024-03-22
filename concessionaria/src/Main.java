@@ -9,33 +9,31 @@ public class Main {
         // instancia de carroService
         CarroService carroService = null;
 
-
         try {
             Registry registro = LocateRegistry.getRegistry(1099);
 
             carroService = (CarroService) registro.lookup("Servicos");
 
             //
-            
-            Carro carro = new Carro("Renavam", "Modelo", "Marca", 2022);
-            Carro carro2 = new Carro("Renavam2", "Modelo2", "Marca2", 2023);
-            Carro carro3 = new Carro("Renavam3", "Modelo3", "Marca3", 2024);
-            Carro carro4 = new Carro("Renavam4", "Modelo4", "Marca4", 2025);
-            Carro carro5 = new Carro("Renavam5", "Modelo5", "Marca5", 2026);
-            Carro carro6 = new Carro("Renavam6", "Modelo6", "Marca6", 2027);
-            Carro carro7 = new Carro("Renavam7", "Modelo7", "Marca7", 2028);
-            Carro carro8 = new Carro("Renavam8", "Modelo8", "Marca8", 2029);
-            Carro carro9 = new Carro(null, null, null, 0);
-            Carro carro10 = new Carro(null, null, null, 0);
-            Carro carro11 = new Carro(null, null, null, 0);
-            Carro carro12 = new Carro(null, null, null, 0);
+
+            Carro carro = new Carro("Renavam", "T-Cross", "Wolksvagen", 2024);
+            Carro carro2 = new Carro("Renavam2", "Kwid", "Renout", 2023);
+            Carro carro3 = new Carro("Renavam3", "Gol", "Wolksvagen", 2022);
+            Carro carro4 = new Carro("Renavam4", "Virtus", "Wolksvagen", 2023);
+            Carro carro5 = new Carro("Renavam5", "Traker", "Wolksvagen", 2024);
+            Carro carro6 = new Carro("Renavam6", "Amarock", "Wolksvagen", 2024);
+            Carro carro7 = new Carro("Renavam7", "Voyage", "Wolksvagen", 2020);
+            Carro carro8 = new Carro("Renavam8", "Jeep Renegade", "Jeep", 2019);
+            Carro carro9 = new Carro("Renavam9", "Saveiro", "Wolksvagen", 2020);
+            Carro carro10 = new Carro("Renavam10", "Nivus", "Wolksvagen", 2024);
+            Carro carro11 = new Carro("Renavam11", "Jeta GLI", "Wolksvagen", 2024);
+            Carro carro12 = new Carro("Renavam12", "Landau", "Ford", 2033);
 
             //
             Usuario usuario = new Usuario("Antonio", "123", 1);
             Usuario usuario2 = new Usuario("Antonio2", "1234", 2);
 
-
-            //carros
+            // carros
             carroService.adicionarCarro(carro);
             carroService.adicionarCarro(carro2);
             carroService.adicionarCarro(carro3);
@@ -51,9 +49,6 @@ public class Main {
             carroService.removerCarro("Renavam");
             carroService.getAllCarros();
             carroService.exibirQuantidadeDisponivel("Renavan");
-            
-
-
 
             // usuario
             carroService.adicionarUsuario(usuario);
@@ -66,18 +61,22 @@ public class Main {
             carroService.getAllUsers();
             carroService.getUserById(1);
             carroService.deleteUser(1);
-
+            Scanner scanner = new Scanner(System.in);
 
             System.err.println("Bem vindo a loginha de carros");
-            System.err.println("-------------------------------------");
-            System.err.println("Você é um usuario administrador? (1) sim (2) não");
 
-            Scanner scanner = new Scanner(System.in);
-            int opcao = scanner.nextInt();
+            System.err.println("Digite o nome do usuario");
+            String nome = scanner.next();
 
-            if (opcao == 1) {
-            while (true) {
-               
+            System.err.println("Digite a senha do usuario");
+            String senha = scanner.next();
+
+            carroService.autenticarUsuario(nome, senha);
+            usuario = carroService.autenticarUsuario(nome, senha);
+
+            if (usuario.getadmin()) {
+                while (true) {
+
                     System.err.println("Bem vindo administrador");
                     System.err.println("----------------------------");
                     System.err.println("O que deseja fazer?");
@@ -92,9 +91,9 @@ public class Main {
                     System.err.println("(9) Buscar usuario");
                     System.err.println("(10) Listar usuarios");
                     System.err.println("(11) Sair");
-    
+
                     int opcao2 = scanner.nextInt();
-    
+
                     if (opcao2 == 1) {
                         System.err.println("Digite o renavam do carro");
                         String renavam = scanner.next();
@@ -124,34 +123,37 @@ public class Main {
                     } else if (opcao2 == 4) {
                         System.err.println("Digite o renavam do carro");
                         String renavam = scanner.next();
-                        carroService.buscarCarro(renavam);
+                        System.err.println(carroService.buscarCarro(renavam));
+
                     } else if (opcao2 == 5) {
-                        carroService.getAllCarros();
+                        for (Carro c : carroService.listarCarros()) {
+                            System.out.println(c);
+                        }
                     } else if (opcao2 == 6) {
                         System.err.println("Digite o nome do usuario");
-                        String nome = scanner.next();
+                        String nomenome = scanner.next();
                         System.err.println("Digite a senha do usuario");
-                        String senha = scanner.next();
+                        String senhasenha = scanner.next();
                         System.err.println("Digite o id do usuario");
                         int id = scanner.nextInt();
                         Usuario usuarioNovo = new Usuario(nome, senha, id);
                         carroService.adicionarUsuario(usuarioNovo);
                     } else if (opcao2 == 7) {
                         System.err.println("Digite o nome do usuario");
-                        String nome = scanner.next();
+                        String nomeremovido = scanner.next();
                         carroService.removerUsuario(nome);
                     } else if (opcao2 == 8) {
                         System.err.println("Digite o nome do usuario");
-                        String nome = scanner.next();
+                        String nomenome2 = scanner.next();
                         System.err.println("Digite a senha do usuario");
-                        String senha = scanner.next();
+                        String senhasenha2 = scanner.next();
                         System.err.println("Digite o id do usuario");
                         int id = scanner.nextInt();
                         Usuario usuarioAtualizado = new Usuario(nome, senha, id);
                         carroService.atualizarUsuario(usuarioAtualizado);
                     } else if (opcao2 == 9) {
                         System.err.println("Digite o nome do usuario");
-                        String nome = scanner.next();
+                        String nomebuscado = scanner.next();
                         carroService.buscarUsuario(nome);
                     } else if (opcao2 == 10) {
                         carroService.getAllUsers();
@@ -163,56 +165,48 @@ public class Main {
                 }
             }
 
+            else if (!usuario.getadmin()) {
+                while (true) {
 
+                    System.err.println("Bem vindo usuario");
+                    System.err.println("---------------------------");
+                    System.err.println("O que deseja fazer?");
+                    System.err.println("(1) Listar carros");
+                    System.err.println("(2) Buscar carro");
+                    System.err.println("(3) Comprar carro");
+                    System.err.println("(4) Quantidade de carros");
+                    System.err.println("(5) Sair");
 
-            else if (opcao == 2) {
-            while (true) {
-           
-                System.err.println("Bem vindo usuario");
-                System.err.println("---------------------------");
-                System.err.println("O que deseja fazer?");
-                System.err.println("(1) Listar carros");
-                System.err.println("(2) Buscar carro");
-                System.err.println("(3) Comprar carro");
-                System.err.println("(4) Quantidade de carros");
-                System.err.println("(5) Sair");
+                    int opcao3 = scanner.nextInt();
 
-                int opcao3 = scanner.nextInt();
+                    if (opcao3 == 1) {
+                        for (Carro c : carroService.listarCarros()) {
+                            System.out.println(c);
+                        }
+                    } else if (opcao3 == 2) {
+                        System.err.println("Digite o renavam do carro");
+                        String renavam = scanner.next();
+                        carroService.buscarCarro(renavam);
+                    } else if (opcao3 == 3) {
+                        System.err.println("Digite o renavam do carro");
+                        String renavam = scanner.next();
+                        System.err.println("Compra realizada com sucesso, Aproveite o seu carrinho :)");
 
-                if (opcao3 == 1) {
-                    for (Carro c : carroService.getAllCarros()) {
-                        System.out.println(c);
+                    } else if (opcao3 == 4) {
+                        String renavam = scanner.next();
+                        System.err.println(carroService.exibirQuantidadeDisponivel(renavam));
+
+                    } else if (opcao3 == 5) {
+                        System.err.println("Até mais :) ");
+                        break;
                     }
-                } else if (opcao3 == 2) {
-                    System.err.println("Digite o renavam do carro");
-                    String renavam = scanner.next();
-                    carroService.buscarCarro(renavam);
-                } else if (opcao3 == 3) {
-                    System.err.println("Digite o renavam do carro");
-                    String renavam = scanner.next();
-                    carroService.comprarCarro(renavam);
-                } else if (opcao3 == 4) {
-                    String renavam = scanner.next();
-                    carroService.exibirQuantidadeDisponivel(renavam);
                 }
-                else if (opcao3 == 5) {
-                    System.err.println("Até mais :) ");
-                    break;
-                }
+
             }
-                
-            }
-           
-
-
-
-        
 
         } catch (Exception e) {
             e.printStackTrace();
-        } 
-           
-
+        }
 
     }
 }

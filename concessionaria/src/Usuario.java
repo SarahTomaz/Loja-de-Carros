@@ -1,4 +1,6 @@
-public class Usuario {
+import java.io.Serializable;
+
+public class Usuario implements Serializable {
     private String nomeUsuario;
     private String senha;
     private boolean admin;
@@ -14,7 +16,6 @@ public class Usuario {
             this.admin = false;
         }
     }
-    
 
     public String getNomeUsuario() {
         return nomeUsuario;
@@ -37,9 +38,8 @@ public class Usuario {
     }
 
     public void setadmin(boolean admin) {
-        this.admin = admin; ;
+        this.admin = admin;
+        ;
     }
-
-    
 
 }

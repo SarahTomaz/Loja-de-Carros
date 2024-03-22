@@ -1,4 +1,6 @@
-public class Carro {
+import java.io.Serializable;
+
+public class Carro implements Serializable {
     private String renavan;
     private String modelo;
     private String marca;
@@ -69,5 +71,18 @@ public class Carro {
     public void setPreco(double preco) {
         this.preco = preco;
     }
-    
+
+    @Override
+    public String toString() {
+        return "Carro{" +
+                "renavan='" + renavan + '\'' +
+                ", modelo='" + modelo + '\'' +
+                ", marca='" + marca + '\'' +
+                ", ano=" + ano +
+                ", anoFabricacao=" + anoFabricacao +
+                ", quantidadeDisponivel=" + quantidadeDisponivel +
+                ", preco=" + preco +
+                '}';
+    }
+
 }
